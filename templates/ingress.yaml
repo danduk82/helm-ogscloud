@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: "/ogs-cloud/"
+        pathType: Prefix
+        backend:
+          service:
+            name: ogscloud-geoservercloud-gateway
+            port:
+              number: {{ index .Values.geoservercloud.geoserver.gateway.service.port }}
+

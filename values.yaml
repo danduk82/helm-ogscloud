@@ -1,0 +1,11 @@
+# Default values for mapserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+geoservercloud:
+  postgresql:
+    enabled: true
+  geoserver:
+    ingress:
+      deploy: false
+      baseUrl: '/ogs-cloud/'
