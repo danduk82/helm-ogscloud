@@ -2,10 +2,23 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+nfs:
+  raster:
+    pvname: ogs-cloud-raster-nfs
+    server: 10.236.1.3
+    path: /raster
+    storage: 10Gi
+
 geoservercloud:
   postgresql:
     enabled: true
   geoserver:
+    volumeMounts:
+      - mountPath: "/var/geoserver/nfsrasters"
+        mountName: "ogs-cloud-raster-nfs-storage"
+        pvcName: "ogs-cloud-raster-nfs-claim"
     ingress:
       deploy: false
-      baseUrl: '/ogs-cloud/'
+      baseUrl: "/ogs-cloud/"
+    wms:
+      replicaCount: 2
