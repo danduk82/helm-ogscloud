@@ -1,9 +1,9 @@
 apiVersion: v2
-appVersion: '1.0'
+appVersion: "1.0"
 description: POC for ogs geoserver-cloud project
 name: ogscloud
 version: 0.1.0
 dependencies:
   - name: geoservercloud
     repository: https://camptocamp.github.io/helm-geoserver-cloud/
-    version: 0.0.10
+    version: 0.0.14
