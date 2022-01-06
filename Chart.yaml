@@ -5,5 +5,6 @@ name: ogscloud
 version: 0.1.0
 dependencies:
   - name: geoservercloud
-    repository: https://camptocamp.github.io/helm-geoserver-cloud/
-    version: 0.0.14
+    #repository: https://camptocamp.github.io/helm-geoserver-cloud/
+    repository: file://../helm-geoserver-cloud/
+    version: 0.0.16
