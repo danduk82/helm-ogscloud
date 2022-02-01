@@ -12,4 +12,4 @@ clean:
 	rm -rf charts/* || /bin/true
 
 upgrade:
-	${HELM} upgrade ogscloud .
+	${HELM} upgrade --install ogscloud .
