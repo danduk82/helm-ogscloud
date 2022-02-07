@@ -8,11 +8,18 @@ nfs:
     server: 10.236.1.3
     path: /raster
     storage: 10Gi
+  config:
+    pvname: ogs-cloud-datadir-nfs
+    server: 10.236.1.3
+    path: /config
+    storage: 10Gi
 
 geoservercloud:
-  #  global:
-  #    image:
-  #      pullPolicy: Always
+  global:
+    profile: datadir
+  #   image:
+  #     registry: samere.ch
+  #     pullPolicy: Always
   postgresql:
     enabled: false
     persistence:
@@ -82,6 +89,10 @@ geoservercloud:
       - mountPath: "/var/geoserver/nfsrasters"
         mountName: "ogs-cloud-raster-nfs-storage"
         pvcName: "ogs-cloud-raster-nfs-claim"
+      - mountPath: "/opt/app/data_directory"
+        mountName: "ogs-cloud-datadir-nfs"
+        pvcName: "ogs-cloud-datadir-nfs-claim"
+
     ingress:
       deploy: false
       baseUrl: "/ogs-cloud/"

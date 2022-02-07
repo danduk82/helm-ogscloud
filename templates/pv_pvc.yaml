@@ -1,30 +1,34 @@
+{{- range $key, $definition := .Values.nfs }}
 ---
+# PV {{ print $key }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{.Values.nfs.raster.pvname}}
+  name: {{$definition.pvname}}
 spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: {{.Values.nfs.raster.storage}}
+    storage: {{$definition.storage}}
   mountOptions:
     - nfsvers=4.1
   nfs:
-    path: {{.Values.nfs.raster.path}}
-    server: {{.Values.nfs.raster.server}}
+    path: {{$definition.path}}
+    server: {{$definition.server}}
   persistentVolumeReclaimPolicy: Retain
 ---
+# PVC {{ print $key }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{.Values.nfs.raster.pvname}}-claim
+  name: {{$definition.pvname}}-claim
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{.Values.nfs.raster.storage}}
-  volumeName: {{.Values.nfs.raster.pvname}}
+      storage: {{$definition.storage}}
+  volumeName: {{$definition.pvname}}
   storageClassName: ""
+{{- end }}
