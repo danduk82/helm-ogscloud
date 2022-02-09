@@ -17,7 +17,7 @@ spec:
     server: {{$definition.server}}
   persistentVolumeReclaimPolicy: Retain
 ---
-# PVC {{ print $key }}
+# PVC {{ print $key }}-claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

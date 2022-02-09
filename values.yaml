@@ -13,13 +13,18 @@ nfs:
     server: 10.236.1.3
     path: /config
     storage: 10Gi
+  cache:
+    pvname: ogs-cloud-gwc-cache-nfs
+    server: 10.236.1.3
+    path: /cache
+    storage: 10Gi
 
 geoservercloud:
   global:
     profile: datadir
-  #   image:
+    image:
+      pullPolicy: Always
   #     registry: samere.ch
-  #     pullPolicy: Always
   postgresql:
     enabled: false
     persistence:
@@ -92,9 +97,48 @@ geoservercloud:
       - mountPath: "/opt/app/data_directory"
         mountName: "ogs-cloud-datadir-nfs"
         pvcName: "ogs-cloud-datadir-nfs-claim"
+      - mountPath: "/mnt/cache"
+        mountName: "ogs-cloud-gwc-cache-nfs"
+        pvcName: "ogs-cloud-gwc-cache-nfs-claim"
 
     ingress:
       deploy: false
       baseUrl: "/ogs-cloud/"
-    wms:
-      replicaCount: 2
+    gateway:
+      image:
+        tag: "1.0-SNAPSHOT"
+    config:
+      image:
+        tag: "1.0-SNAPSHOT"
+    discovery:
+      image:
+        tag: "1.0-SNAPSHOT"
+    services:
+      rest:
+        env:
+          - name: GEOWEBCACHE_CACHE_DIR
+            value: "/mnt/cache"
+        image:
+          tag: "1.0-SNAPSHOT"
+      wms:
+        image:
+          tag: "1.0-SNAPSHOT"
+        replicaCount: 2
+      wcs:
+        image:
+          tag: "1.0-SNAPSHOT"
+      wfs:
+        image:
+          tag: "1.0-SNAPSHOT"
+      webui:
+        env:
+          - name: GEOWEBCACHE_CACHE_DIR
+            value: "/mnt/cache"
+        image:
+          tag: "1.0-SNAPSHOT"
+      gwc:
+        env:
+          - name: GEOWEBCACHE_CACHE_DIR
+            value: "/mnt/cache"
+        image:
+          tag: "1.0-SNAPSHOT"
