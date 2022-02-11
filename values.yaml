@@ -41,23 +41,28 @@ geoservercloud:
       geoserverDbUsername:
         name: "GEOSERVER_DB_USERNAME"
         value: ""
-        secretName: "ogscloud-database"
+        secretName: "geodata-database"
         secretKey: "username"
       geoserverDbPassword:
         name: "GEOSERVER_DB_PASSWORD"
         value: ""
-        secretName: "ogscloud-database"
+        secretName: "geodata-database"
         secretKey: "password"
       geoserverDbHostName:
         name: "GEOSERVER_DB_HOST"
         value: ""
-        secretName: "ogscloud-database"
+        secretName: "geodata-database"
         secretKey: "hostname"
       geoserverDbPort:
         name: "GEOSERVER_DB_PORT"
         value: ""
-        secretName: "ogscloud-database"
+        secretName: "geodata-database"
         secretKey: "port"
+      geoserverDbDatabase:
+        name: "GEOSERVER_DB_DATABASE"
+        value: ""
+        secretName: "geodata-database"
+        secretKey: "database"
     jdbc:
       external: true
       configVariables:
