@@ -13,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ogscloud-geoservercloud-gateway
+            name: {{  printf "%s-geoservercloud" .Release.Name | trunc 42 }}-gateway
             port:
               number: {{ index .Values.geoservercloud.geoserver.gateway.service.port }}
 
