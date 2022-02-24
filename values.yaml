@@ -21,7 +21,7 @@ nfs:
 
 geoservercloud:
   global:
-    profile: datadir
+    profile: standalone,datadir
     image:
       pullPolicy: Always
   #     registry: samere.ch
@@ -38,6 +38,9 @@ geoservercloud:
     postgresqlHostName: "172.17.0.1"
   geoserver:
     envVariables:
+      gwcCacheDir:
+        name: "GEOWEBCACHE_CACHE_DIR"
+        value: "/mnt/cache"
       geoserverDbUsername:
         name: "GEOSERVER_DB_USERNAME"
         value: ""
@@ -64,7 +67,7 @@ geoservercloud:
         secretName: "geodata-database"
         secretKey: "database"
     jdbc:
-      external: true
+      external: false
       configVariables:
         postgresqlDatabase:
           name: "JDBCCONFIG_DATABASE"
@@ -112,38 +115,25 @@ geoservercloud:
     # gateway:
     #   image:
     #     tag: "1.0-SNAPSHOT"
-    # config:
-    #   image:
-    #     tag: "1.0-SNAPSHOT"
-    # discovery:
-    #   image:
-    #     tag: "1.0-SNAPSHOT"
     services:
-      rest:
-        env:
-          - name: GEOWEBCACHE_CACHE_DIR
-            value: "/mnt/cache"
-        # image:
-        #   tag: "1.0-SNAPSHOT"
+      # rest:
+      #   image:
+      #     tag: "1.0-SNAPSHOT"
       wms:
+        replicaCount: 2
         # image:
         #   tag: "1.0-SNAPSHOT"
-        replicaCount: 2
       # wcs:
       #   image:
       #     tag: "1.0-SNAPSHOT"
-      # wfs:
-      #   image:
-      #     tag: "1.0-SNAPSHOT"
-      webui:
-        env:
-          - name: GEOWEBCACHE_CACHE_DIR
-            value: "/mnt/cache"
+      wfs:
+        replicaCount: 2
         # image:
         #   tag: "1.0-SNAPSHOT"
+      # webui:
+      #   image:
+      #     tag: "1.0-SNAPSHOT"
       gwc:
-        env:
-          - name: GEOWEBCACHE_CACHE_DIR
-            value: "/mnt/cache"
+        replicaCount: 2
         # image:
         #   tag: "1.0-SNAPSHOT"
