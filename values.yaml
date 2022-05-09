@@ -37,6 +37,18 @@ geoservercloud:
     postgresqlPassword: "password"
     postgresqlHostName: "172.17.0.1"
   geoserver:
+    custom:
+      javaopts: "-javaagent:/mnt/localshare/applicationinsights-agent-3.2.11.jar"
+      commonInitContainers:
+        - name: inject-application-insight
+          volumeMounts:
+            - name: localshare
+              mountPath: /mnt/localshare/
+          command:
+            - /bin/sh
+            - -c
+            - wget -O /mnt/localshare/applicationinsights-agent-3.2.11.jar https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.2.11/applicationinsights-agent-3.2.11.jar
+          image: busybox
     envVariables:
       gwcCacheDir:
         name: "GEOWEBCACHE_CACHE_DIR"
