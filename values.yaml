@@ -41,14 +41,14 @@ geoservercloud:
       javaopts: "-javaagent:/mnt/localshare/applicationinsights-agent-3.2.11.jar"
       commonInitContainers:
         - name: inject-application-insight
+          image: camptocamp/package-application-insights:3.2.11
           volumeMounts:
             - name: localshare
               mountPath: /mnt/localshare/
           command:
             - /bin/sh
             - -c
-            - wget -O /mnt/localshare/applicationinsights-agent-3.2.11.jar https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.2.11/applicationinsights-agent-3.2.11.jar
-          image: busybox
+            - cp /stuff/applicationinsights-agent-3.2.11.jar /mnt/localshare/applicationinsights-agent-3.2.11.jar
     envVariables:
       gwcCacheDir:
         name: "GEOWEBCACHE_CACHE_DIR"
