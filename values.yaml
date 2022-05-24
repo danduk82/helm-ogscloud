@@ -25,6 +25,14 @@ geoservercloud:
     image:
       pullPolicy: Always
   #     registry: samere.ch
+  rabbitmq:
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
   postgresql:
     enabled: false
     persistence:
@@ -124,15 +132,36 @@ geoservercloud:
     ingress:
       deploy: false
       baseUrl: "/ogs-cloud/"
-    # gateway:
+    gateway:
+      resources:
+        limits:
+          cpu: 2
+          memory: 2Gi
+        requests:
+          cpu: 2
+          memory: 2Gi
     #   image:
     #     tag: "1.0-SNAPSHOT"
     services:
-      # rest:
+      rest:
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 2
+            memory: 4Gi
       #   image:
       #     tag: "1.0-SNAPSHOT"
       wms:
         replicaCount: 2
+        resources:
+          limits:
+            cpu: 3
+            memory: 5Gi
+          requests:
+            cpu: 3
+            memory: 5Gi
         # image:
         #   tag: "1.0-SNAPSHOT"
       # wcs:
