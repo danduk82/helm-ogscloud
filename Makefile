@@ -11,5 +11,5 @@ clean:
 	${HELM} uninstall ogscloud || /bin/true
 	rm -rf charts/* || /bin/true
 
-upgrade:
+upgrade: dep_update
 	${HELM} upgrade --install ogscloud .
